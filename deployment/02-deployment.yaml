@@ -1,0 +1,67 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: slack-sink
+  namespace: kube-system
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  template:
+    metadata:
+      labels:
+        app: slack-sink
+    spec:
+      containers:
+      - name: slack-sink
+        image: <image_name>
+        command: ["python3","/app/src/app.py"]
+        env:
+          - name: KILLING
+            value: "False"
+          - name: BACKOFF
+            value: "True"
+          - name: CREATED
+            value: "False"
+          - name: CREATEDLOADBALANCER
+            value: "False"
+          - name: CREATINGLOADBALANCER
+            value: "False"
+          - name: FAILED
+            value: "True"
+          - name: FAILEDMOUNT
+            value: "True"
+          - name: FAILEDSYNC
+            value: "True"
+          - name: FREEDISKSPACEFAILED
+            value: "True"
+          - name: IMAGEGCFAILED
+            value: "True"
+          - name: INSPECTFAILED
+            value: "True"
+          - name: LEADERELECTION
+            value: "False"
+          - name: PULLED
+            value: "False"
+          - name: PULLING
+            value: "False"
+          - name: REGISTEREDNODE
+            value: "False"
+          - name: SCALINGREPLICASET
+            value: "False"
+          - name: STARTED
+            value: "False"
+          - name: SUCCESSFULCREATE
+            value: "False"
+          - name: UNHEALTHY
+            value: "True"
+          - name: UPDATEDLOADBALANCER
+            value: "False"
+          - name: SECRET_USERNAME
+            valueFrom:
+            secretKeyRef:
+              name: slack-sink-secret
+              key: webhook
+      restartPolicy: Always
+      imagePullSecrets:
+      - name: <secret-name-for-pulling-images>

@@ -1,0 +1,14 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: slack-sink
+  namespace: kube-system
+  labels:
+    app: slack-sink
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: slack-sink
+ 

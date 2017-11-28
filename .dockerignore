@@ -1,0 +1,7 @@
+./deployment
+./Dockerfile
+./README.md
+./.git
+./app/.git
+./.gitignore
+./.dockerignore
